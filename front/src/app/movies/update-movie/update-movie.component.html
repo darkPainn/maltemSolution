@@ -1,0 +1,9 @@
+<br>
+
+<form (ngSubmit)="onUpdateMovie()" class="row" #updateMovieForm="ngForm">
+    <input type="text" id="title" [(ngModel)]="movie.title" name="title" class="col-md-2 form-control" required>
+    <input type="text" id="director" [(ngModel)]="movie.director" name="director" class="col-md-2 form-control" required>
+    <input type="text" id="releaseDate" [(ngModel)]="movie.releaseDate" name="releaseDate" class="col-md-2 form-control" required>
+    <input type="text" id="type" [(ngModel)]="movie.type" name="type" class="col-md-2 form-control" required>
+    <button type="submit" [disabled]="!updateMovieForm.valid" class="btn btn-success col-md-2">Update Movie</button>
+</form>

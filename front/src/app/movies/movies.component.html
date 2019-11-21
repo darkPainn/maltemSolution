@@ -1,0 +1,94 @@
+
+<div class="container">
+    <div class="row">
+        <h4 style="text-align: center;">Welcome to movies page!</h4>
+    </div>    
+
+    <div *ngIf="movies.length < 1; else displayMovies" class="row">
+        <p>Currently there are no movies in the system.</p>
+        <!-- create a movie -->
+        <form (ngSubmit)="onCreateMovie()" class="row" #createMovieForm="ngForm">
+            <input type="text" id="title" ngModel name="title" class="col-md-2 form-control" placeholder="Title" required>
+            <input type="text" id="director" ngModel name="director" class="col-md-2 form-control" placeholder="Director" required>
+            <input type="date" id="releaseDate" ngModel name="releaseDate" class="col-md-2 form-control" placeholder="Release Date" required>
+            <input type="text" id="type" ngModel name="type" class="col-md-2 form-control" placeholder="Type" required>
+            <button type="submit" [disabled]="!createMovieForm.valid" class="btn btn-success col-md-2">Create Movie</button>
+        </form>
+    </div>
+    
+    <ng-template #displayMovies>
+        <div class="container">
+        <!-- create a movie -->
+        <form (ngSubmit)="onCreateMovie()" class="row" #createMovieForm="ngForm">
+            <input type="text" id="title" ngModel name="title" class="col-md-2 form-control" placeholder="Title" required>
+            <input type="text" id="director" ngModel name="director" class="col-md-2 form-control" placeholder="Director" required>
+            <input type="date" id="releaseDate" ngModel name="releaseDate" class="col-md-2 form-control" placeholder="Release Date" required>
+            <input type="text" id="type" ngModel name="type" class="col-md-2 form-control" placeholder="Type" required>
+            <button type="submit" [disabled]="!createMovieForm.valid" class="btn btn-success col-md-2">Create Movie</button>
+        </form>
+
+        <br>
+
+        <!-- search for a movie    -->
+        <form class="row" (ngSubmit)="onSearcForMovie()" #searchMovieForm="ngForm">
+            <input id="searchTerm" name="searchTerm" ngModel required type="text" class="col-md-6 form-control">
+            <button [disabled]="!searchMovieForm.valid" class="btn btn-success col-md-4">Search For a Movie</button>
+        </form>
+
+        <br>
+        <!-- sorting the results -->
+        <form (ngSubmit)="onSortMovies()" class="row" #sortMoviesForm="ngForm">
+            <select name="sortBy" id="sortBy" class="col-md-6 form-control" ngModel required>
+                <option selected value="title">Title</option>
+                <option value="director">Director</option>
+                <option value="releaseDate">Release Date</option>
+                <option value="type">Type</option>
+            </select>
+            <button [disabled]="!sortMoviesForm.valid" class="btn btn-success col-md-4">Sort Movies</button>
+        </form>
+    </div>
+
+        <br>
+
+        <!-- display the movies -->
+        <div class="container">
+            <div class="row breadcrumb" style="font-weight: bold;">
+                <div class="col-md-2">Title</div>
+                <div class="col-md-2">Director</div>
+                <div class="col-md-2">Release Date</div>
+                <div class="col-md-2">Type</div>
+                <div class="col-md-2">Actions</div>
+            </div>
+            <div *ngFor="let movie of movies; let i = index;"  class="row breadcrumb">
+                <div class="col-md-2">{{ movie.title }}</div>
+                <div class="col-md-2">{{ movie.director }}</div>
+                <div class="col-md-2">{{ movie.releaseDate }}</div>
+                <div class="col-md-2">{{ movie.type }}</div>
+                <div class="col-md-4">
+                    <button style="margin-right: 5px;" class="btn btn-danger" (click)="deleteMovie(i)">X</button>
+                    <button class="btn btn-warning" (click)="updateMovie(i)">Update</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- <table >
+            <thead>
+                <tr>
+                    <td>Title</td>
+                    <td>Director</td>
+                    <td>Release Date</td>
+                    <td>Type</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let movie of movies">
+                    <td>{{ movie.title }}</td>
+                    <td>{{ movie.director }}</td>
+                    <td>{{ movie.releaseDate }}</td>
+                    <td>{{ movie.type }}</td>
+                </tr>
+            </tbody>
+        </table> -->
+    </ng-template>        
+
+</div>
